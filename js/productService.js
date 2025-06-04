@@ -8,6 +8,7 @@ function products() {
             console.log('Productos:', data);
 
             let listProduct = `
+            <button type="button" class="btn btn-success" onclick="createProduct()">Crear</button>
             <div class="table-responsive">
                 <table class="table table-striped table-hover border-success">
                     <thead class="table-success text-white">
@@ -95,3 +96,101 @@ function getProduct(idProduct) {
             document.getElementById('info').innerHTML = '<h3 class="text-danger">No se encontró el producto en la API</h3>';
         });
 }
+
+function createProduct() {
+    const modalProduct = `
+<!-- Modal -->
+<div class="modal fade" id="modalProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title fs-5" id="exampleModalLabel">Crear Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <form id="formCreateProduct">
+                            <div class="row g-3">
+                                <div class="col">
+                                    <input type="text" class="form-control" id="title" placeholder="Nombre" required>
+                                </div>
+                                 <div class="col">
+                                    <input type="text" class="form-control" id="price" placeholder="Precio" required>
+                                </div>
+                                <div class="col">
+                                    <input type="url" class="form-control" id="images" placeholder="imagen" required>
+                                </div>
+                                 <div class="col">
+                                    <input type="text" class="form-control" id="description" placeholder="Descripcion" required>
+                                </div>
+                                 <div class="col">
+                                    <input type="text" class="form-control" id="categoryId" placeholder="id" required>
+                                </div>          
+                            </div>
+                            <div class="text-end mt-4">
+                                <button type="button" class="btn btn-success" onclick="saveProduct()">Guardar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            `
+    document.getElementById('viewModal').innerHTML = modalProduct
+    const modal = new bootstrap.Modal(
+        document.getElementById('modalProduct')
+    )
+    modal.show()
+}
+
+function saveProduct() {
+    const form = document.getElementById('formCreateProduct')
+    if (form.checkValidity()) {
+        const title = document.getElementById('title').value
+        const price = document.getElementById('price').value
+        const description = document.getElementById('description').value
+        const images = [document.getElementById('images').value]
+        const categoryId = document.getElementById('categoryId').value
+    
+        const Product = { title, price, images, description, categoryId }
+
+        const FAKEAPI_ENDPOINT = 'https://api.escuelajs.co/api/v1/products/'
+        fetch(FAKEAPI_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                
+            },
+            body: JSON.stringify(Product)
+        })
+            .then(response => response.json())
+            
+            .then((data) => {
+                console.log("entra", data)
+                
+                    document.getElementById('info').innerHTML =
+                        '<h3>Guardado exitosamente</h3>'
+                
+                
+                
+                const modalId = document.getElementById('modalProduct')
+                const modal = bootstrap.Modal.getInstance(modalId)
+                modal.hide()
+
+            })
+            .catch(error=> {
+                console.error("Error:", error)
+                document.getElementById('info').innerHTML =
+                        '<h3>Error al guardar el Producto</h3>'
+            })
+    }
+    else {
+        form.reportValidity()
+    }
+}
+
+

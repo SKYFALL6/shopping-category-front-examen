@@ -112,8 +112,9 @@ function createUser() {
                                     <input type="text" class="form-control" id="name" placeholder="Nombre" required>
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="form-control" id="role" placeholder="Rol" required>
+                                    <input type="url" class="form-control" id="avatar" placeholder="avatar" required>
                                 </div>
+                               
                             </div>
                             <div class="row g-3 mt-3">
                                 <div class="col">
@@ -145,11 +146,12 @@ function createUser() {
 function saveUser() {
     const form = document.getElementById('formCreateUser')
     if (form.checkValidity()) {
-        const first_name = document.getElementById('name').value
-        const last_name = document.getElementById('role').value
+        const name = document.getElementById('name').value
         const email = document.getElementById('email').value
         const password = document.getElementById('password').value
-        const user = { name, role, email, password }
+        const avatar = document.getElementById('avatar').value
+    
+        const user = { name, email, avatar, password }
 
         const FAKEAPI_ENDPOINT = 'https://api.escuelajs.co/api/v1/users/'
         fetch(FAKEAPI_ENDPOINT, {
