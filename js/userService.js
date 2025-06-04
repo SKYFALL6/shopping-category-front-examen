@@ -8,7 +8,7 @@ function users() {
             console.log('Usuarios:', data);
 
             let listUser = `
-            <button type="button" class="btn btn-success" onclick="createUser()">Crear</button>
+            <button type="button" class="btn btn-success mb-3" onclick="createUser()">Crear</button>
             <div class="table-responsive">
                 <table class="table table-striped table-hover border-success">
                     <thead class="table-success text-white">
@@ -17,7 +17,7 @@ function users() {
                             <th scope="col">Email</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Rol</th>
-                            <th scope="col">Acción</th>
+                            <th scope="col">info</th>
                         </tr>
                     </thead>
                     <tbody>`;
@@ -99,7 +99,7 @@ function createUser() {
 <div class="modal fade" id="modalUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
+            <div class="modal-header bg-success text-white">
                 <h5 class="modal-title fs-5" id="exampleModalLabel">Crear Usuario</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -112,7 +112,7 @@ function createUser() {
                                     <input type="text" class="form-control" id="name" placeholder="Nombre" required>
                                 </div>
                                 <div class="col">
-                                    <input type="url" class="form-control" id="avatar" placeholder="avatar" required>
+                                    <input type="url" class="form-control" id="avatar" placeholder="Avatar" required>
                                 </div>
                                
                             </div>

@@ -8,7 +8,7 @@ function products() {
             console.log('Productos:', data);
 
             let listProduct = `
-            <button type="button" class="btn btn-success" onclick="createProduct()">Crear</button>
+            <button type="button" class="btn btn-success  mb-3 text-align-center" onclick="createProduct()">Crear</button>
             <div class="table-responsive">
                 <table class="table table-striped table-hover border-success">
                     <thead class="table-success text-white">
@@ -18,7 +18,7 @@ function products() {
                             <th scope="col">Precio</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Imagen</th>
-                            <th scope="col">Acción</th>
+                            <th scope="col">info</th>
                         </tr>
                     </thead>
                     <tbody>`;
@@ -103,7 +103,7 @@ function createProduct() {
 <div class="modal fade" id="modalProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
+            <div class="modal-header bg-success text-white">
                 <h5 class="modal-title fs-5" id="exampleModalLabel">Crear Producto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -118,6 +118,7 @@ function createProduct() {
                                  <div class="col">
                                     <input type="text" class="form-control" id="price" placeholder="Precio" required>
                                 </div>
+                                <div class="row g-3">
                                 <div class="col">
                                     <input type="url" class="form-control" id="images" placeholder="imagen" required>
                                 </div>
@@ -126,7 +127,8 @@ function createProduct() {
                                 </div>
                                  <div class="col">
                                     <input type="text" class="form-control" id="categoryId" placeholder="id" required>
-                                </div>          
+                                </div>  
+                                </div>        
                             </div>
                             <div class="text-end mt-4">
                                 <button type="button" class="btn btn-success" onclick="saveProduct()">Guardar</button>

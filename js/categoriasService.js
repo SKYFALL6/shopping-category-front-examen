@@ -8,17 +8,16 @@ function categorias() {
             console.log('Categorias:', data);
 
             let listCategoria = `
-             <button type="button" class="btn btn-success" onclick="createCategoria()">Crear</button>
+             <button type="button" class="btn btn-success  mb-3" onclick="createCategoria()">Crear</button>
             <div class="table-responsive">
                 <table class="table table-striped table-hover border-success">
                     <thead class="table-success text-white">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Imagen</th>
-                            <th scope="col">Acción</th>
+                            <th scope="col">slug</th>
+                            <th scope="col">imagen</th>
+                            <th scope="col">info</th>
                         </tr>
                     </thead>
                     <tbody>`;
@@ -61,7 +60,7 @@ function getCategoria(idCategoria) {
         .then(response => response.json())
         .then(data => {
             console.log('Categoria:', data);
-            
+
             const modalCategoria = `
             <div class="modal fade" id="modalCategoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -103,7 +102,7 @@ function createCategoria() {
 <div class="modal fade" id="modalCategoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
+            <div class="modal-header bg-success text-white">
                 <h5 class="modal-title fs-5" id="exampleModalLabel">Crear Categoria</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -145,7 +144,7 @@ function saveCategoria() {
     if (form.checkValidity()) {
         const name = document.getElementById('name').value
         const image = document.getElementById('image').value
-    
+
         const categoria = { name, image }
 
         const FAKEAPI_ENDPOINT = 'https://api.escuelajs.co/api/v1/categories/'
@@ -153,34 +152,33 @@ function saveCategoria() {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                
+
             },
             body: JSON.stringify(categoria)
         })
             .then(response => response.json())
-            
+
             .then((data) => {
                 console.log("entra", data)
-                
-                    document.getElementById('info').innerHTML =
-                        '<h3>Guardado exitosamente</h3>'
-                
-                
-                
+
+                document.getElementById('info').innerHTML =
+                    '<h3>Guardado exitosamente</h3>'
+
+
+
                 const modalId = document.getElementById('modalCategoria')
                 const modal = bootstrap.Modal.getInstance(modalId)
                 modal.hide()
 
             })
-            .catch(error=> {
+            .catch(error => {
                 console.error("Error:", error)
                 document.getElementById('info').innerHTML =
-                        '<h3>Error al guardar la categoria</h3>'
+                    '<h3>Error al guardar la categoria</h3>'
             })
     }
     else {
         form.reportValidity()
     }
 }
-
 
