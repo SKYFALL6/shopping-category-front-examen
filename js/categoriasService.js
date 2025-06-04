@@ -54,12 +54,12 @@ function categorias() {
 }
 
 function getCategoria(idCategoria) {
-    const FAKESTORE_ENDPOINT = `https://api.escuelajs.co/api/v1/products/${idCategoria}`;
+    const FAKESTORE_ENDPOINT = `https://api.escuelajs.co/api/v1/categories/${idCategoria}`;
 
     fetch(FAKESTORE_ENDPOINT, { method: 'GET' })
         .then(response => response.json())
         .then(data => {
-            console.log('Producto:', data);
+            console.log('Categoria:', data);
             
             const modalCategoria = `
             <div class="modal fade" id="modalCategoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -74,7 +74,7 @@ function getCategoria(idCategoria) {
                                 <img src="${data.image}" class="card-img-top rounded mx-auto mt-3" style="width: 200px;" alt="Imagen del producto">
                                 <div class="card-body">
                                     <h5 class="card-title text-success">${data.name}</h5>
-                                    <p class="card-text"><strong>Precio:</strong> $${data.slug.toFixed(2)}</p>
+                                    <p class="card-text"><strong>Precio:</strong> $${data.slug}</p>
                                     
                                 </div>
                             </div>

@@ -8,6 +8,7 @@ function users() {
             console.log('Usuarios:', data);
 
             let listUser = `
+            <button type="button" class="btn btn-success" onclick="createUser()">Crear</button>
             <div class="table-responsive">
                 <table class="table table-striped table-hover border-success">
                     <thead class="table-success text-white">
@@ -91,3 +92,97 @@ function getUser(idUser) {
             document.getElementById('info').innerHTML = '<h3 class="text-danger">No se encontró el usuario en la API</h3>';
         });
 }
+
+function createUser() {
+    const modalUser = `
+<!-- Modal -->
+<div class="modal fade" id="modalUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title fs-5" id="exampleModalLabel">Crear Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <form id="formCreateUser">
+                            <div class="row g-3">
+                                <div class="col">
+                                    <input type="text" class="form-control" id="name" placeholder="Nombre" required>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="role" placeholder="Rol" required>
+                                </div>
+                            </div>
+                            <div class="row g-3 mt-3">
+                                <div class="col">
+                                    <input type="email" class="form-control" id="email" placeholder="Correo electrónico" required>
+                                </div>
+                                <div class="col">
+                                    <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+                                </div>
+                            </div>
+                            <div class="text-end mt-4">
+                                <button type="button" class="btn btn-success" onclick="saveUser()">Guardar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            `
+    document.getElementById('viewModal').innerHTML = modalUser
+    const modal = new bootstrap.Modal(
+        document.getElementById('modalUser')
+    )
+    modal.show()
+}
+
+function saveUser() {
+    const form = document.getElementById('formCreateUser')
+    if (form.checkValidity()) {
+        const first_name = document.getElementById('name').value
+        const last_name = document.getElementById('role').value
+        const email = document.getElementById('email').value
+        const password = document.getElementById('password').value
+        const user = { name, role, email, password }
+
+        const FAKEAPI_ENDPOINT = 'https://api.escuelajs.co/api/v1/users/'
+        fetch(FAKEAPI_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                
+            },
+            body: JSON.stringify(user)
+        })
+            .then(response => response.json())
+            
+            .then((data) => {
+                console.log("entra", data)
+                
+                    document.getElementById('info').innerHTML =
+                        '<h3>Guardado exitosamente</h3>'
+                
+                
+                
+                const modalId = document.getElementById('modalUser')
+                const modal = bootstrap.Modal.getInstance(modalId)
+                modal.hide()
+
+            })
+            .catch(error=> {
+                console.error("Error:", error)
+                document.getElementById('info').innerHTML =
+                        '<h3>Error al guardar el usuario</h3>'
+            })
+    }
+    else {
+        form.reportValidity()
+    }
+}
+
